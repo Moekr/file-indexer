@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class LogicConfig {
     private String directory;
     private int interval = 1000;
+    private boolean syncBeforeStart = true;
 
     public String getDirectory() {
         return directory;
@@ -23,5 +24,13 @@ public class LogicConfig {
 
     public void setInterval(int interval) {
         this.interval = interval;
+    }
+
+    public boolean isSyncBeforeStart() {
+        return syncBeforeStart;
+    }
+
+    public void setSyncBeforeStart(boolean syncBeforeStart) {
+        this.syncBeforeStart = syncBeforeStart;
     }
 }

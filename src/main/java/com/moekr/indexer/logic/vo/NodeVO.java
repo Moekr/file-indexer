@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 
 @Data
 public class NodeVO {
+    private String id;
     private boolean directory;
     private String path;
     private String name;
