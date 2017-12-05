@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class IconVO {
     private String type;
+    private String mime;
     private String base64;
 
     public IconVO(String type){

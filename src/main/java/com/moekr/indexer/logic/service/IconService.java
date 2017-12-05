@@ -68,6 +68,31 @@ public class IconService {
         for(String type : properties.stringPropertyNames()){
             IconVO icon = typeMap.get(type);
             if(icon != null){
+                String iconFile = properties.getProperty(type);
+                if(iconFile.lastIndexOf('.') > 0){
+                    String suffix = iconFile.substring(iconFile.lastIndexOf('.') + 1);
+                    switch (suffix){
+                        case "jpg":
+                            icon.setMime("image/jpeg");
+                            break;
+                        case "png":
+                            icon.setMime("image/png");
+                            break;
+                        case "bmp":
+                            icon.setMime("image/bmp");
+                            break;
+                        case "ico":
+                            icon.setMime("image/x-icon");
+                            break;
+                        case "svg":
+                            icon.setMime("image/svg+xml");
+                            break;
+                        default:
+                            icon.setMime("image");
+                    }
+                }else {
+                    icon.setMime("image");
+                }
                 icon.setBase64(base64Encode(properties.getProperty(type)));
             }
         }

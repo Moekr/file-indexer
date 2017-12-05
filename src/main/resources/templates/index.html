@@ -77,7 +77,7 @@
         }
     </style>
     <th:block th:each="icon,state:${iconList}">
-        <style th:text="'.'+${icon.type}+':before {background: url(data:image/png;base64,'+${icon.base64}+') left center no-repeat}'"></style>
+        <style th:text="'.'+${icon.type}+':before {background: url(data:'+${icon.mime}+';base64,'+${icon.base64}+') left center no-repeat}'"></style>
     </th:block>
 </head>
 <body>
@@ -93,7 +93,7 @@
         </thead>
         <tbody>
             <tr th:if="${uri}!='/'">
-                <td><a class="dir" href="../">Parent</a></td>
+                <td><a class="dir" href="../">..</a></td>
                 <td><span>-</span></td>
                 <td><span>-</span></td>
             </tr>
