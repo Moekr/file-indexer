@@ -19,9 +19,14 @@
         a {
             color: #555;
             text-decoration: none;
+            display: block;
         }
         a:active {
             color: #4183C4;
+        }
+        a:before {
+            content: "";
+            padding-left: 24px;
         }
         table {
             border-collapse: collapse;
@@ -50,7 +55,6 @@
         th {
             background-color: #555;
             color: #fff;
-            text-align: left;
         }
         tr:hover {
             background-color: #767676;
@@ -72,6 +76,9 @@
             color: white;
         }
     </style>
+    <th:block th:each="icon,state:${iconList}">
+        <style th:text="'.'+${icon.type}+':before {background: url(data:image/png;base64,'+${icon.base64}+') left center no-repeat}'"></style>
+    </th:block>
 </head>
 <body>
 <div>
@@ -86,13 +93,13 @@
         </thead>
         <tbody>
             <tr th:if="${uri}!='/'">
-                <td><a href="../">Parent</a></td>
+                <td><a class="dir" href="../">Parent</a></td>
                 <td><span>-</span></td>
                 <td><span>-</span></td>
             </tr>
-            <tr th:each="node,state:${list}">
-                <td th:if="${node.directory}"><a th:href="${node.path}+${node.name}+'/'" th:text="${node.name}"></a></td>
-                <td th:if="!${node.directory}"><a th:href="${node.path}+${node.name}" th:text="${node.name}"></a></td>
+            <tr th:each="node,state:${nodeList}">
+                <td th:if="${node.directory}"><a class="dir" th:href="${node.path}+${node.name}+'/'" th:text="${node.name}"></a></td>
+                <td th:if="!${node.directory}"><a th:class="${node.type}" th:href="${node.path}+${node.name}" th:text="${node.name}"></a></td>
                 <td><span th:text="${node.size}"></span></td>
                 <td><span th:text="${node.date}"></span></td>
             </tr>

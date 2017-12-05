@@ -13,6 +13,7 @@ public class NodeVO {
     private String name;
     private String size;
     private String date;
+    private String type;
 
     public NodeVO(Node node){
         BeanUtils.copyProperties(node, this);
