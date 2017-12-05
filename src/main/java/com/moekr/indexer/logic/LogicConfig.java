@@ -11,6 +11,7 @@ public class LogicConfig {
     private String directory;
     private int interval = 1000;
     private boolean syncBeforeStart = true;
+    private boolean redirectOriginIndex = false;
     private Icon icon = new Icon();
 
     @Data
