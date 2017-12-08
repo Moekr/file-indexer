@@ -86,8 +86,9 @@
         <caption th:text="${uri}"></caption>
         <thead>
         <tr>
-            <th width="75%">Name</th>
+            <th width="55%">Name</th>
             <th width="10%">Size</th>
+            <th width="20%">Hash(MD5)</th>
             <th width="15%">Date</th>
         </tr>
         </thead>
@@ -96,11 +97,13 @@
                 <td><a class="dir" href="../">..</a></td>
                 <td><span>-</span></td>
                 <td><span>-</span></td>
+                <td><span>-</span></td>
             </tr>
             <tr th:each="node,state:${nodeList}">
                 <td th:if="${node.directory}"><a class="dir" th:href="${node.path}+${node.name}+'/'" th:text="${node.name}"></a></td>
                 <td th:if="!${node.directory}"><a th:class="${node.type}" th:href="${node.path}+${node.name}" th:text="${node.name}"></a></td>
                 <td><span th:text="${node.size}"></span></td>
+                <td><span th:text="${node.hash}"></span></td>
                 <td><span th:text="${node.date}"></span></td>
             </tr>
         </tbody>

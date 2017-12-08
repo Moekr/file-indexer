@@ -64,7 +64,8 @@ public class WatcherService extends FileAlterationListenerAdaptor {
 			for(File child : children){
 				String fullPath = child.getPath().substring(rootPath.length());
 				String nodeId = DigestUtils.md5Hex(ToolKit.convertPath(fullPath));
-				if(!nodeList.removeIf(node -> node.getId().equals(nodeId))){
+				String nodeDate = ToolKit.convertDate(ToolKit.convertTimeStamp(child.lastModified()));
+				if(!nodeList.removeIf(node -> node.getId().equals(nodeId) && node.getDate().equals(nodeDate))){
 					onFileChange(child);
 				}
 				if(child.isDirectory()){
@@ -108,6 +109,7 @@ public class WatcherService extends FileAlterationListenerAdaptor {
 		node.setPath(ToolKit.convertPath(path));
 		node.setName(name);
 		node.setSize(file.isDirectory() ? 0L : file.length());
+		node.setHash(hash(file));
 		node.setModifiedAt(ToolKit.convertTimeStamp(file.lastModified()));
 		nodeService.saveNode(node);
 	}
@@ -116,6 +118,22 @@ public class WatcherService extends FileAlterationListenerAdaptor {
 	public void onFileDelete(File file) {
 		String fullPath = file.getPath().substring(rootPath.length());
 		nodeService.deleteNode(DigestUtils.md5Hex(ToolKit.convertPath(fullPath)));
+	}
+
+	private String hash(File file){
+		String result;
+		if(file.isFile()){
+			try{
+				InputStream inputStream = new FileInputStream(file);
+				result = DigestUtils.md5Hex(inputStream);
+				inputStream.close();
+			}catch (IOException e){
+				result = "-";
+			}
+		}else{
+			result = "-";
+		}
+		return result;
 	}
 
 	@PreDestroy

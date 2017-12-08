@@ -30,6 +30,10 @@ public class Node {
     private long size;
 
     @Basic
+    @Column(name = "hash")
+    private String hash;
+
+    @Basic
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 }
