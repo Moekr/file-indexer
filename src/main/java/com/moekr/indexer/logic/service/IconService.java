@@ -120,7 +120,7 @@ public class IconService {
             if(node.isDirectory()){
                 node.setType(DIRECTORY_TYPE);
             }else if(node.getName().lastIndexOf('.') > 0){
-                String suffix = node.getName().substring(node.getName().lastIndexOf('.') + 1);
+                String suffix = node.getName().substring(node.getName().lastIndexOf('.') + 1).toLowerCase();
                 IconVO icon = suffixMap.get(suffix);
                 if(icon != null){
                     node.setType(icon.getType());
